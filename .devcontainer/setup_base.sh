@@ -25,4 +25,16 @@ cp -r /tmp/.ssh/* /root/.ssh/
 chmod 600 /root/.ssh/*
 chmod 700 /root/.ssh
 
+cd /workspace/
+
+if [ ! -d "/workspace/StateTransformer" ]; then
+    git clone git@github.com:ZikangXiong/StateTransformer.git
+fi
+
+if [ ! -d "/workspace/nuplan-devkit" ]; then
+    git clone git@github.com:ZikangXiong/nuplan-devkit.git
+fi
+
+
 git config --global --add safe.directory /workspace/StateTransformer
+git config --global --add safe.directory /workspace/nuplan-devkit
