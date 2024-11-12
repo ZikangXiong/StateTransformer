@@ -7,14 +7,29 @@ apt-get install -y wget git zsh curl iputils-ping
 # ping www.baidu.com 5 times, and get the average ttl
 # if the average ttl is less than 30 ms, then we are in China
 # otherwise, we are not in China
-ttl=$(ping -c 5 www.baidu.com | grep ttl | awk '{print $6}' | cut -d '=' -f 2)
-if [ $ttl -lt 30 ]; then
+
+ping_result=$(ping -c 5 www.baidu.com 2>/dev/null)
+
+# Check if ping was successful
+if [ $? -ne 0 ]; then
+    echo "Error: Could not ping www.baidu.com"
+    exit 1
+fi
+
+# Extract average time from ping statistics and convert to integer
+avg_time=$(echo "$ping_result" | grep 'avg' | awk '{print $4}' | cut -d '/' -f 2)
+avg_int=${avg_time%.*}  # Remove decimal part
+
+# Compare with threshold using simple integer comparison
+if [ "$avg_int" -lt 30 ]; then
     IS_IN_CHINA=true
 else
     IS_IN_CHINA=false
 fi
 
-echo "Is in China: $IS_IN_CHINA"
+echo "Average ping time: ${avg_time}ms"
+echo "In China: $IS_IN_CHINA"
+
 
 # Install oh-my-zsh
 chsh -s $(which zsh)

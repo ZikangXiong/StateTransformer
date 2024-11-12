@@ -22,7 +22,7 @@ else
 fi
 
 echo "Installing PyTorch packages..."
-pip3 install torch torchvision
+conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch -c conda-forge -y
 
 echo "Installing other dependencies..."
 cd /workspace/StateTransformer
@@ -34,6 +34,7 @@ pip install aiofiles
 pip install bokeh==2.4.1
 pip install ipython
 pip install ipdb
+pip install hydra-core
 
 cd /workspace/nuplan-devkit
 pip install -e .
