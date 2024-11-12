@@ -1,0 +1,43 @@
+{
+  "name": "CUDA Development Container",
+  "image": "nvidia/cuda:11.0.3-runtime-ubuntu20.04",
+  
+  "runArgs": [
+    "--runtime=nvidia",
+    "--gpus", "all"
+  ],
+
+  "workspaceMount": "source=/home/zikang/playground,target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+  
+  "mounts": [
+    "source=/home/zikang/data,target=/workspace/data,type=bind",
+    "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,readonly"
+  ],
+
+  "remoteUser": "root",
+  
+  "postCreateCommand": "bash /workspace/StateTransformer/.devcontainer/setup_base.sh && chmod 600 /root/.ssh/*",
+  
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/zsh",
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/bin/zsh"
+          }
+        }
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "eamodio.gitlens", 
+        "GitHub.copilot", 
+        "GitHub.copilot-chat",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  }
+}
