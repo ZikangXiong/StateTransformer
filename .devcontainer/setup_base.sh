@@ -19,3 +19,10 @@ source ~/.zshrc
 /root/miniconda3/bin/conda init zsh
 /root/miniconda3/bin/conda create -n dev python=3.10 -y
 /root/miniconda3/bin/conda clean -a -y
+
+mkdir -p /root/.ssh
+cp -r /tmp/.ssh/* /root/.ssh/
+chmod 600 /root/.ssh/*
+chmod 700 /root/.ssh
+
+git config --global --add safe.directory /workspace/StateTransformer

@@ -12,12 +12,12 @@
   
   "mounts": [
     "source=/home/zikang/data,target=/workspace/data,type=bind",
-    "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,readonly"
+    "source=${localEnv:HOME}/.ssh,target=/tmp/.ssh,type=bind,readonly"
   ],
 
   "remoteUser": "root",
   
-  "postCreateCommand": "bash /workspace/StateTransformer/.devcontainer/setup_base.sh && chmod 600 /root/.ssh/*",
+  "postCreateCommand": "bash /workspace/StateTransformer/.devcontainer/setup_base.sh && bash /workspace/StateTransformer/.devcontainer/setup_python_env.sh", 
   
   "customizations": {
     "vscode": {
