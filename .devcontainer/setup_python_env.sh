@@ -1,22 +1,15 @@
 #!/bin/bash
 
-if [ ! -d "/root/.config/pip" ]; then
-    mkdir -p /root/.config/pip
-fi
-
-if [ ! -f "/root/.config/pip/pip.conf" ]; then
-    echo "[global]
-root-user-action=ignore" > /root/.config/pip/pip.conf
-else
-    echo "pip.conf already exists, not modifying"
-fi
-
 # Exit on error
 set -e
 
 echo "Activating conda environment 'dev'..."
 # Source conda to ensure conda activate works in script
 source ~/anaconda3/etc/profile.d/conda.sh || source ~/miniconda3/etc/profile.d/conda.sh
+
+# Create a new conda environment
+/root/miniconda3/bin/conda create -n dev python=3.10 -y
+/root/miniconda3/bin/conda clean -a -y
 
 # Activate the environment
 conda activate dev
